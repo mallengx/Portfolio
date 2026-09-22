@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miguel Ángel Lozano — Desarrollador multiplataforma</title>
+<meta name="description" content="Portfolio de Miguel Ángel Lozano, desarrollador multiplataforma especializado en backend, bases de datos y sistemas de diagnóstico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #eef1f5;
+    --surface: #ffffff;
+    --ink: #10161f;
+    --ink-soft: #4a5568;
+    --line: #c3cdd8;
+    --line-strong: #9fadbd;
+    --amber: #d9711f;
+    --teal: #1f6f74;
+    --max: 1100px;
+    --gutter: clamp(20px, 5vw, 64px);
+    --scan-op: 0.05;
+  }
+
+  html[data-theme="dark"]{
+    --paper: #0c1117;
+    --surface: #141b24;
+    --ink: #e7edf3;
+    --ink-soft: #94a5b8;
+    --line: #232e3a;
+    --line-strong: #37455530;
+    --line-strong: #3a4a5c;
+    --amber: #ff9a4d;
+    --teal: #57d6cb;
+    --scan-op: 0.08;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background .25s ease, color .25s ease;
+  }
+
+  ::selection{ background: var(--amber); color: #fff; }
+  a{ color: inherit; }
+
+  .mono{ font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.01em; }
+
+  h1, h2, h3{
+    font-family: 'Space Grotesk', sans-serif;
+    margin: 0;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---------- background blueprint grid ---------- */
+  .grid-bg{
+    position: fixed; inset: 0; z-index: -1;
+    background-color: var(--line-strong);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22%23ffffff%22%3E%3Cpath%20transform%3D%22rotate%280%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%2872%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28144%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28216%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28288%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3C/g%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20fill%3D%22%23ffffff%22%3E%3Cpath%20transform%3D%22rotate%280%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%2872%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28144%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28216%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3Cpath%20transform%3D%22rotate%28288%2050%2050%29%22%20d%3D%22M50%2C50%20C41.6%2C43.28%2039.08%2C28.16%2045.8%2C11.36%20L50%2C8.84%20L52.52%2C15.56%20C55.04%2C14.72%2059.24%2C15.56%2060.92%2C18.92%20L55.88%2C21.44%20C52.52%2C29.84%2050.42%2C40.76%2050%2C50%20Z%22/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: 84px 84px;
+    mask-size: 84px 84px;
+    opacity: var(--scan-op);
+    transition: opacity .25s ease;
+  }
+
+  /* ---------- scroll progress ---------- */
+  .scanbar{
+    position: fixed; top:0; left:0; height: 2px;
+    background: var(--amber);
+    width: 0%;
+    z-index: 50;
+    transition: width .1s linear;
+  }
+
+  /* ---------- header / nav ---------- */
+  header{
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content: space-between;
+    padding: 18px var(--gutter);
+    max-width: var(--max); margin: 0 auto;
+  }
+  .brand{
+    font-family:'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem;
+    display:flex; align-items:baseline; gap: 8px;
+  }
+  .brand .dot{ color: var(--amber); }
+  .nav-right{ display:flex; align-items:center; gap: 22px; }
+  .navlinks{ display:flex; gap: 26px; list-style:none; margin:0; padding:0; }
+  .navlinks a{
+    text-decoration:none; font-size: 0.92rem; color: var(--ink-soft);
+    border-bottom: 1px solid transparent; padding-bottom: 3px;
+    transition: color .15s, border-color .15s;
+  }
+  .navlinks a:hover{ color: var(--ink); border-color: var(--amber); }
+
+  .theme-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    background: none;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    border-radius: 20px;
+    padding: 6px 12px;
+    cursor: pointer;
+    display:flex; align-items:center; gap:7px;
+    transition: border-color .15s, color .15s;
+  }
+  .theme-btn:hover{ border-color: var(--amber); color: var(--amber); }
+  .theme-btn .led{ width:6px; height:6px; border-radius:50%; background: var(--teal); }
+
+  .navtoggle{ display:none; background:none; border:1px solid var(--line-strong); border-radius:6px; padding:8px 10px; cursor:pointer; }
+  .navtoggle span{ display:block; width:18px; height:2px; background:var(--ink); margin:3px 0; }
+
+  @media (max-width: 760px){
+    .navlinks{
+      position:absolute; top: 100%; left:0; right:0;
+      flex-direction:column; gap:0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+      max-height:0; overflow:hidden;
+      transition: max-height .25s ease;
+    }
+    .navlinks.open{ max-height:260px; }
+    .navlinks a{ padding: 14px var(--gutter); border-bottom:1px solid var(--line); }
+    .navtoggle{ display:block; }
+  }
+
+  section{ padding: 96px 0; border-bottom: 1px solid var(--line); position: relative; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--teal);
+    display:flex; align-items:center; gap: 10px; margin-bottom: 18px;
+  }
+  .eyebrow::before{ content:""; width: 22px; height: 1px; background: var(--teal); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top: 110px; padding-bottom: 100px; }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 56px;
+    align-items:center;
+  }
+  @media (max-width: 860px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+  .hero-tag{ font-family:'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 22px; }
+  .hero-tag .ok{ color: var(--teal); }
+  h1.hero-title{ font-size: clamp(2.3rem, 5.6vw, 3.8rem); line-height: 1.05; }
+
+  .role-line{
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    color: var(--teal);
+    min-height: 1.6em;
+  }
+  .role-line .cursor{ display:inline-block; width:1px; background: var(--teal); margin-left:2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero-sub{ margin-top: 22px; max-width: 54ch; font-size: 1.1rem; color: var(--ink-soft); }
+  .hero-cta{ margin-top: 38px; display:flex; gap: 16px; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap: 8px; padding: 13px 22px; border-radius: 3px;
+    text-decoration:none; font-size: 0.95rem; font-weight: 500; border: 1px solid var(--ink);
+    transition: transform .15s, background .15s, color .15s, border-color .15s;
+  }
+  .btn.primary{ background: var(--ink); color: var(--paper); }
+  .btn.primary:hover{ background: var(--amber); border-color: var(--amber); color: #fff; }
+  .btn.ghost{ background: transparent; color: var(--ink); }
+  .btn.ghost:hover{ border-color: var(--amber); color: var(--amber); }
+
+  /* ---------- photo scan frame ---------- */
+  .scan-frame{
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin-left: auto;
+    aspect-ratio: 3 / 4;
+    padding: 14px;
+  }
+  .scan-frame::before, .scan-frame::after{
+    content:"";
+    position:absolute;
+    width: 34px; height: 34px;
+    border-color: var(--amber);
+    border-style: solid;
+  }
+  .scan-frame::before{ top:0; left:0; border-width: 2px 0 0 2px; }
+  .scan-frame::after{ bottom:0; right:0; border-width: 0 2px 2px 0; }
+  .scan-corner-2{ position:absolute; top:0; right:0; width:34px; height:34px; border: solid var(--line-strong); border-width: 2px 2px 0 0; }
+  .scan-corner-3{ position:absolute; bottom:0; left:0; width:34px; height:34px; border: solid var(--line-strong); border-width: 0 0 2px 2px; }
+
+  .scan-photo-box{
+    position:relative;
+    width:100%; height:100%;
+    overflow:hidden;
+    background: var(--surface);
+  }
+  .scan-photo-box img{
+    width:100%; height:100%;
+    object-fit: cover;
+    display:block;
+    filter: grayscale(0.15) contrast(1.03);
+  }
+  .scan-line{
+    position:absolute; left:0; right:0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    top:0;
+    animation: scandown 2.2s ease-in-out 1;
+    animation-fill-mode: forwards;
+    opacity: 0.9;
+  }
+  @keyframes scandown{
+    0%{ top:0%; }
+    100%{ top:100%; opacity:0; }
+  }
+  .scan-readout{
+    margin-top: 14px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display:flex; justify-content:space-between;
+    max-width: 340px;
+    margin-left:auto;
+  }
+  .scan-readout .live{ color: var(--teal); }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 64px; }
+  @media (max-width: 800px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-copy p{ max-width: 60ch; color: var(--ink-soft); }
+  .about-copy p + p{ margin-top: 14px; }
+
+  .spec-sheet{ border: 1px solid var(--line-strong); background: var(--surface); border-radius: 4px; overflow:hidden; }
+  .spec-head{
+    font-family:'IBM Plex Mono', monospace; font-size: 0.76rem; padding: 12px 16px;
+    background: var(--ink); color: var(--paper); display:flex; justify-content:space-between;
+  }
+  .spec-row{ display:flex; justify-content:space-between; padding: 11px 16px; border-top: 1px solid var(--line); font-size: 0.9rem; }
+  .spec-row span:first-child{ color: var(--ink-soft); }
+  .spec-row span:last-child{ font-family:'IBM Plex Mono', monospace; font-size: 0.82rem; text-align:right; }
+
+  /* ---------- experience ---------- */
+  .timeline{ display:flex; flex-direction:column; gap: 0; margin-top: 8px; }
+  .tl-item{ display:grid; grid-template-columns: 140px 1fr; gap: 28px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .tl-item:first-child{ border-top: none; }
+  @media (max-width: 620px){ .tl-item{ grid-template-columns: 1fr; gap:6px; } }
+  .tl-period{ font-family:'IBM Plex Mono', monospace; font-size: 0.82rem; color: var(--teal); padding-top: 2px; }
+  .tl-role{ font-weight: 600; font-size: 1.05rem; }
+  .tl-org{ color: var(--ink-soft); font-size: 0.92rem; margin-top: 2px; }
+  .tl-desc{ margin-top: 10px; color: var(--ink-soft); max-width: 62ch; }
+
+  /* ---------- projects ---------- */
+  .proj-list{ display:flex; flex-direction:column; gap: 0; }
+  .proj{ border-top: 1px solid var(--line); padding: 34px 0; display:grid; grid-template-columns: 200px 1fr auto; gap: 24px; align-items:start; }
+  .proj:last-child{ border-bottom: 1px solid var(--line); }
+  @media (max-width: 860px){ .proj{ grid-template-columns: 1fr; } }
+
+  .proj-media{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .proj-media img{ width:100%; height:100%; object-fit: cover; display:block; }
+  .proj-media-tag{
+    position:absolute; top:8px; left:8px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.62rem;
+    background: rgba(16,22,31,0.72); color:#eef1f5;
+    padding: 3px 7px; border-radius: 3px; letter-spacing: .03em;
+  }
+  .proj-media-empty{
+    display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--ink-soft);
+    text-align:center; padding: 10px; background:
+      repeating-linear-gradient(45deg, var(--paper), var(--paper) 8px, var(--line) 8px, var(--line) 9px);
+  }
+  .proj-media-empty span{ color: var(--ink-soft); opacity: 0.7; font-size: 0.64rem; }
+
+  /* variante: marco tipo pantalla de móvil para proyectos de app móvil */
+  .proj.proj--mobile{ grid-template-columns: 160px 1fr auto; }
+  @media (max-width: 860px){ .proj.proj--mobile{ grid-template-columns: 1fr; } }
+  .proj-media.proj-media--mobile{
+    aspect-ratio: 9 / 19.5;
+    max-width: 160px;
+    margin: 0 auto;
+    border-radius: 16px;
+    border-width: 2px;
+  }
+  .proj-media.proj-media--mobile::before{
+    content:"";
+    position:absolute; top:8px; left:50%; transform: translateX(-50%);
+    width: 44px; height: 5px; border-radius: 3px;
+    background: var(--line-strong);
+    z-index: 2;
+  }
+  .proj-name{ font-size: 1.3rem; font-weight: 600; }
+  .proj-desc{ color: var(--ink-soft); margin-top: 8px; max-width: 58ch; }
+  .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; align-items:center; }
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size: 0.72rem; padding: 4px 9px;
+    border: 1px solid var(--line-strong); border-radius: 3px; color: var(--ink-soft);
+  }
+  .tag.stat{ color: var(--teal); border-color: var(--teal); opacity: 0; transition: opacity .3s ease; }
+  .tag.stat.show{ opacity: 1; }
+  .proj-links{ display:flex; flex-direction:column; gap: 8px; align-items: flex-end; white-space: nowrap; }
+  .proj-links a{ font-size: 0.88rem; text-decoration: none; border-bottom: 1px solid var(--line-strong); padding-bottom: 2px; }
+  .proj-links a:hover{ border-color: var(--amber); color: var(--amber); }
+  @media (max-width: 680px){ .proj-links{ align-items:flex-start; flex-direction:row; gap:20px; } }
+
+  /* ---------- github activity widget ---------- */
+  .activity-card{
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    border-radius: 4px;
+    padding: 24px;
+    margin-top: 28px;
+  }
+  .activity-head{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-soft);
+    margin-bottom: 16px;
+  }
+  .activity-head .live-dot{ color: var(--teal); }
+  .activity-card img{ width: 100%; height:auto; display:block; border-radius: 3px; }
+  .activity-note{ margin-top: 12px; font-size: 0.82rem; color: var(--ink-soft); }
+
+  /* ---------- education ---------- */
+  .edu-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 10px; }
+  @media (max-width: 680px){ .edu-grid{ grid-template-columns: 1fr; } }
+  #formacion{ padding-bottom: 89px; }
+  .edu-card{ border: 1px solid var(--line); background: var(--surface); border-radius: 4px; padding: 22px; }
+  .edu-period{ font-family:'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--teal); }
+  .edu-title{ font-weight: 600; margin-top: 8px; }
+  .edu-org{ color: var(--ink-soft); font-size: 0.9rem; margin-top: 4px; }
+
+  /* ---------- contact ---------- */
+  .contact-wrap{ display:grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 720px){ .contact-wrap{ grid-template-columns: 1fr; } }
+  .contact-list{ list-style:none; padding:0; margin: 20px 0 0; }
+  .contact-list li{ padding: 16px 0; border-top: 1px solid var(--line); display:flex; justify-content: space-between; align-items:center; }
+  .contact-list li:last-child{ border-bottom: 1px solid var(--line); }
+  .contact-label{ font-family:'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); }
+  .contact-value{ text-decoration:none; font-weight: 500; }
+  .contact-value:hover{ color: var(--amber); }
+
+  footer{ padding: 32px var(--gutter); text-align:center; font-family:'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce){
+    .scan-line, .role-line .cursor{ animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanbar" id="scanbar"></div>
+<div class="grid-bg"></div>
+
+<header>
+  <nav class="nav">
+    <div class="brand">Miguel Ángel<span class="dot">·</span>Lozano</div>
+    <div class="nav-right">
+      <ul class="navlinks" id="navLinks">
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li><a href="#formacion">Formación</a></li>
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <button class="theme-btn" id="themeBtn"><span class="led"></span><span id="themeLabel">modo claro</span></button>
+      <button class="navtoggle" id="navToggle" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag mono"><span class="ok">●</span> disponible para incorporación</div>
+        <h1 class="hero-title">Miguel Ángel Lozano</h1>
+        <div class="role-line mono"><span id="roleText"></span><span class="cursor">&nbsp;</span></div>
+        <p class="hero-sub">Desarrollador multiplataforma centrado en backend, bases de datos y sistemas de diagnóstico. Construyo software que interpreta datos complejos y los convierte en soluciones prácticas.</p>
+        <div class="hero-cta">
+          <a href="#proyectos" class="btn primary">Ver proyectos</a>
+          <a href="assets/CV_Miguel_Angel_Lozano.pdf" class="btn ghost" download>Descargar CV</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="scan-frame">
+          <div class="scan-corner-2"></div>
+          <div class="scan-corner-3"></div>
+          <div class="scan-photo-box">
+            <img src="assets/pfp.png" alt="Foto de Miguel Ángel Lozano">
+            <div class="scan-line"></div>
+          </div>
+        </div>
+        <div class="scan-readout mono">
+          <span></span>
+          <span class="live">● verificado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="sobre-mi" class="wrap">
+    <div class="eyebrow mono">Sobre mí</div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>Soy una persona joven y motivada, con gran interés por la programación y el desarrollo de software, enfocada en crear soluciones prácticas y en seguir aprendiendo nuevas tecnologías constantemente.</p>
+        <p>Vengo del Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma (IES Gregorio Prieto), y mi experiencia más reciente ha sido en el diseño e implementación de software para la detección, análisis e interpretación de fallos electrónicos y mecánicos en vehículos, optimizando procesos de mantenimiento mediante herramientas tecnológicas avanzadas e IA.</p>
+        <p>Me considero proactivo, responsable y adaptable: con la misma facilidad trabajo en equipo que resuelvo problemas de forma autónoma.</p>
+      </div>
+      <div class="spec-sheet">
+        <div class="spec-head"><span>STACK</span><span>v1.0</span></div>
+        <div class="spec-row"><span>Lenguajes</span><span>Java · C# · Python · C++</span></div>
+        <div class="spec-row"><span>Web</span><span>JavaScript · .NET</span></div>
+        <div class="spec-row"><span>Datos</span><span>SQL · PostgreSQL</span></div>
+        <div class="spec-row"><span>Infra</span><span>Docker · Git</span></div>
+        <div class="spec-row"><span>Idiomas</span><span>ES nativo · EN alto</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="formacion" class="wrap">
+    <div class="eyebrow mono">Formación</div>
+    <h2>Educación</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-period">2023 — 2026</div>
+        <div class="edu-title">Ciclo Formativo de Grado Superior — Desarrollo de Aplicaciones Multiplataforma</div>
+        <div class="edu-org">IES Gregorio Prieto</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-period">2017 — 2019</div>
+        <div class="edu-title">Ciclo Formativo de Grado Medio — Sistemas Microinformáticos y Redes</div>
+        <div class="edu-org">IES Gregorio Prieto</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experiencia" class="wrap">
+    <div class="eyebrow mono">Experiencia</div>
+    <h2>Trayectoria profesional</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">2025 — 2026</div>
+        <div>
+          <div class="tl-role">Desarrollador de sistemas de diagnóstico de vehículos</div>
+          <div class="tl-org">COJALI S.L.</div>
+          <p class="tl-desc">Diseño e implementación de soluciones software para la detección, análisis e interpretación de fallos electrónicos y mecánicos, optimizando procesos de mantenimiento y reparación mediante herramientas tecnológicas avanzadas e IA.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2019 — 2021</div>
+        <div>
+          <div class="tl-role">Técnico / Dependiente</div>
+          <div class="tl-org">Informática La Mancha S.L.</div>
+          <p class="tl-desc">Encargado de solucionar los problemas técnicos sobre ordenadores de los clientes, atención directa y soporte de hardware y software.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="proyectos" class="wrap">
+    <div class="eyebrow mono">Proyectos</div>
+    <h2>Cosas que he construido</h2>
+    <div class="proj-list" style="margin-top: 28px;">
+
+      <div class="proj proj--mobile">
+        <div class="proj-media proj-media--mobile">
+          <img src="assets/proj-mejorapptg3.gif" alt="Demo animada de MejorAppTG3" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="proj-media-empty">GIF pendiente<br><span>assets/proj-mejorapptg3.gif</span></div>
+        </div>
+        <div>
+          <div class="proj-name">MejorAppTG3</div>
+          <p class="proj-desc">Proyecto de fin de ciclo: una herramienta pensada para concienciar al alumnado sobre la importancia de la higiene mental, ayudando a prevenir problemas cada vez más frecuentes en las aulas como la ansiedad y el estrés.</p>
+          <div class="tags" data-repo="MejorAppTG3">
+            <span class="tag">C#</span>
+           
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/mallengx/MejorAppTG3" target="_blank" rel="noopener">Repositorio ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-media">
+          <img src="assets/proj-musica.gif" alt="Demo animada de la app de reconocimiento musical" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="proj-media-empty">GIF pendiente<br><span>assets/proj-musica.gif</span></div>
+        </div>
+        <div>
+          <div class="proj-name">Reconocimiento musical multiplataforma</div>
+          <p class="proj-desc">Aplicación multiplataforma de reconocimiento musical desarrollada con .NET MAUI, pensada para funcionar de forma consistente en distintos dispositivos.</p>
+          <div class="tags" data-repo="proyectomiguelangel">
+            <span class="tag">C#</span>
+            <span class="tag">.NET MAUI</span>
+            
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/mallengx/proyectomiguelangel" target="_blank" rel="noopener">Repositorio ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-media">
+          <img src="assets/proj-regicide.gif" alt="Demo animada de Regicide" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="proj-media-empty">GIF pendiente<br><span>assets/proj-regicide.gif</span></div>
+        </div>
+        <div>
+          <div class="proj-name">Regicide</div>
+          <p class="proj-desc">Implementación del juego de cartas cooperativo Regicide, centrada en modelar las reglas y la lógica de partida.</p>
+          <div class="tags" data-repo="Regicide_MiguelAngelLozano">
+            <span class="tag">Java</span>
+            
+          </div>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/mallengx/Regicide_MiguelAngelLozano" target="_blank" rel="noopener">Repositorio ↗</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GITHUB ACTIVITY WIDGET -->
+    <div class="activity-card">
+      <div class="activity-head">
+        <span><span class="live-dot">●</span> actividad en GitHub — datos en vivo</span>
+        <span>github.com/mallengx</span>
+      </div>
+      <img src="https://ghchart.rshah.org/1f6f74/mallengx" alt="Mapa de actividad de commits de mallengx en GitHub" loading="lazy">
+      <div class="activity-note">Este mapa se genera en tiempo real a partir de mi historial público de commits.</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="wrap" style="border-bottom:none;">
+    <div class="eyebrow mono">Contacto</div>
+    <div class="contact-wrap">
+      <div>
+        <h2>Hablemos</h2>
+        <p style="color:var(--ink-soft); max-width:48ch; margin-top:14px;">¿Tienes una oportunidad o quieres saber más sobre algún proyecto? Escríbeme directamente o encuéntrame en estas plataformas.</p>
+      </div>
+      <ul class="contact-list">
+        <li><span class="contact-label">EMAIL</span><a class="contact-value" href="mailto:miguelangellozano2611@gmail.com">miguelangellozano2611@gmail.com</a></li>
+        <li><span class="contact-label">GITHUB</span><a class="contact-value" href="https://github.com/mallengx" target="_blank" rel="noopener">github.com/mallengx</a></li>
+        <li><span class="contact-label">LINKEDIN</span><a class="contact-value" href="https://www.linkedin.com/in/miguel-%C3%A1ngel-lozano-hu%C3%A9scar-390415250/" target="_blank" rel="noopener">Miguel Ángel Lozano</a></li>
+        <li><span class="contact-label">UBICACIÓN</span><span class="contact-value">Valdepeñas, Ciudad Real</span></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 Miguel Ángel Lozano — construido con HTML, CSS y JS</footer>
+
+<script>
+  // mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // scroll progress bar
+  const scanbar = document.getElementById('scanbar');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    scanbar.style.width = scrolled + '%';
+  });
+
+  // theme toggle (modo plano / modo escaneo)
+  const themeBtn = document.getElementById('themeBtn');
+  const themeLabel = document.getElementById('themeLabel');
+  const root = document.documentElement;
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); themeLabel.textContent = 'modo claro'; }
+    else{ root.removeAttribute('data-theme'); themeLabel.textContent = 'modo oscuro'; }
+  }
+  const saved = localStorage.getItem('mal-theme');
+  if(saved) applyTheme(saved);
+  themeBtn.addEventListener('click', () => {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    const next = isDark ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('mal-theme', next);
+  });
+
+  // typed role rotator
+  const roles = [
+    'Desarrollador backend',
+    'Ingeniero de bases de datos',
+    'Desarrollador de sistemas de diagnóstico',
+    'Desarrollador multiplataforma'
+  ];
+  const roleEl = document.getElementById('roleText');
+  let ri = 0, ci = 0, deleting = false;
+  function tick(){
+    const word = roles[ri];
+    if(!deleting){
+      ci++;
+      roleEl.textContent = word.slice(0, ci);
+      if(ci === word.length){ deleting = true; setTimeout(tick, 1400); return; }
+    } else {
+      ci--;
+      roleEl.textContent = word.slice(0, ci);
+      if(ci === 0){ deleting = false; ri = (ri + 1) % roles.length; }
+    }
+    setTimeout(tick, deleting ? 35 : 65);
+  }
+  tick();
+
+  // live GitHub repo stats (stars) — graceful no-op on failure
+  document.querySelectorAll('.tags[data-repo]').forEach(async (el) => {
+    const repo = el.getAttribute('data-repo');
+    try{
+      const res = await fetch(`https://api.github.com/repos/mallengx/${repo}`);
+      if(!res.ok) return;
+      const data = await res.json();
+      const starEl = el.querySelector('[data-field="stars"]');
+      if(starEl){
+        starEl.textContent = `★ ${data.stargazers_count}`;
+        starEl.classList.add('show');
+      }
+    }catch(e){ /* sin conexión a la API: se mantienen las etiquetas estáticas */ }
+  });
+</script>
+
+</body>
+</html>
