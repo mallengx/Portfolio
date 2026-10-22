@@ -315,6 +315,19 @@
     background: var(--line-strong);
     z-index: 2;
   }
+ /* variante: captura de app de escritorio (casi cuadrada) */
+  .proj.proj--square{ grid-template-columns: 240px 1fr auto; }
+  @media (max-width: 860px){ .proj.proj--square{ grid-template-columns: 1fr; } }
+  .proj-media.proj-media--square{
+    aspect-ratio: 938 / 982;
+    background: #fff;
+  }
+  .proj-media.proj-media--square img{ object-fit: contain; }
+  @media (max-width: 860px){
+    .proj-media.proj-media--square{ max-width: 320px; }
+  }
+
+  
   .proj-name{ font-size: 1.3rem; font-weight: 600; }
   .proj-desc{ color: var(--ink-soft); margin-top: 8px; max-width: 58ch; }
   .tags{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; align-items:center; }
@@ -549,8 +562,8 @@
           <a href="https://github.com/mallengx/Regicide_MiguelAngelLozano" target="_blank" rel="noopener">Repositorio ↗</a>
         </div>
       </div>
-<div class="proj">
-        <div class="proj-media">
+<div class="proj proj--square">
+  <div class="proj-media proj-media--square">
           <img src="assets/proj-mia.png" alt="Captura de MIA, asistente de IA de escritorio" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="proj-media-empty">Imagen pendiente<br><span>assets/proj-mia.png</span></div>
         </div>
